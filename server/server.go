@@ -14,6 +14,8 @@ func New() *server {
 
 func (s *server) Server(port int) {
 	http.HandleFunc("/hello", s.hello)
+	http.HandleFunc("/bmi", s.bmi)
+
 	http.Handle("/sample", &sample{})
 
 	addr := fmt.Sprintf(":%d", port)
@@ -25,5 +27,5 @@ type sample struct {
 }
 
 func (s *sample) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "sample handler")
+	fmt.Fprintf(w, "Sample handler")
 }
