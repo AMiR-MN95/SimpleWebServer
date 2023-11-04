@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 func (handler *server) hello(w http.ResponseWriter, r *http.Request) {
@@ -51,4 +52,9 @@ func (handler *server) bmi(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Fprintf(w, "Sorry, only post method is supported!")
 	}
+}
+
+func (handler *server) incrementCounter(w http.ResponseWriter, r *http.Request) {
+	handler.counter++
+	fmt.Fprintf(w, strconv.Itoa(handler.counter))
 }

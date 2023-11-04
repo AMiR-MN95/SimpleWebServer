@@ -6,15 +6,20 @@ import (
 	"net/http"
 )
 
-type server struct{}
+type server struct {
+	counter int
+}
 
 func New() *server {
-	return &server{}
+	return &server{
+		counter: 0,
+	}
 }
 
 func (s *server) Server(port int) {
 	http.HandleFunc("/hello", s.hello)
 	http.HandleFunc("/bmi", s.bmi)
+	http.HandleFunc("/counter", s.incrementCounter)
 
 	http.Handle("/sample", &sample{})
 
