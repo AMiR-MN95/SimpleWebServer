@@ -55,6 +55,9 @@ func (handler *server) bmi(w http.ResponseWriter, r *http.Request) {
 }
 
 func (handler *server) incrementCounter(w http.ResponseWriter, r *http.Request) {
+	handler.mutex.Lock()
+	defer handler.mutex.Unlock()
+
 	handler.counter++
 	fmt.Fprintf(w, strconv.Itoa(handler.counter))
 }
