@@ -12,14 +12,16 @@ type server struct {
 	mutex   *sync.Mutex
 }
 
-func New() *server {
+func Start() *server {
 	return &server{
 		counter: 0,
 		mutex:   &sync.Mutex{},
 	}
 }
 
-func (s *server) Server(port int) {
+func (s *server) Serve(port int) {
+	http.Handle("/", http.FileServer(http.Dir("./static")))
+
 	http.HandleFunc("/hello", s.hello)
 	http.HandleFunc("/bmi", s.bmi)
 	http.HandleFunc("/counter", s.incrementCounter)
